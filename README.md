@@ -1,0 +1,1 @@
+Django website to store virtual chapter bookmarks for manga, and notify the user of new manga chapters (maybe via email). Mangaupdates will be used for manga data.
