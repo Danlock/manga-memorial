@@ -8,7 +8,7 @@ class Manga(models.Model):
   id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
   name = models.CharField(max_length=2048,null=True)
   latest_release = models.CharField(max_length=128,null=True)
-  author = models.CharField(max_length=128,default="")
+  author = models.CharField(max_length=128,default="",null=True)
   relevant_image_url = models.URLField(max_length=512,null=True)
   manga_updates_url = models.URLField(max_length=512,null=True)
   updated_at = models.DateTimeField(auto_now=True,null=True)
@@ -23,7 +23,6 @@ class User(AbstractUser):
     ('monthly','monthly'),
     ('bimonthly','bimonthly'),
   )
-  # username = models.CharField(max_length=128)
   private = models.BooleanField(default=True)
   notification_frequency = models.CharField(max_length=32,choices=frequency_choices,default=frequency_choices[0])
   created_at = models.DateTimeField(auto_now_add=True,null=True)

@@ -4,18 +4,7 @@ from core.models import Manga
 from lxml.html import parse
 
 class Command(BaseCommand):
-  help = 'Updates latest_release on manga.'
-
-  # def add_arguments(self, parser):
-  #     # Positional arguments
-  #     parser.add_argument('poll_id', nargs='+', type=int)
-
-  #     # Named (optional) arguments
-  #     parser.add_argument('--delete',
-  #         action='store_true',
-  #         dest='delete',
-  #         default=False,
-  #         help='Delete poll instead of closing it')
+  help = 'Updates latest_release on mangas. Run every 12 hours at least.'
 
   def handle(self,*args, **options):
     url = 'http://www.mangaupdates.com/releases.html'
@@ -25,7 +14,7 @@ class Command(BaseCommand):
 
     for rls in today_rls:
       link = rls.xpath("./td[1]/a")
-      Manga.objects.get_or_create(
+      Manga.objects.update_or_create(
         name=rls.xpath("./td[@class='pad']")[0].text_content(),
         defaults={
           'latest_release': rls.xpath("./td[2]")[0].text_content(),
