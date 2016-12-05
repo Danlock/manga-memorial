@@ -2,13 +2,13 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from core.forms import *
 from django.contrib.auth import get_user_model
-User = get_user_model()
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
+User = get_user_model()
 
 @csrf_protect
 def register(request):

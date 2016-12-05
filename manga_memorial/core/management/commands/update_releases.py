@@ -11,7 +11,6 @@ class Command(BaseCommand):
     root = parse(url).getroot()
     today_rls = root.xpath("//div/div[2]//tr[position()>=2]")
 
-
     for rls in today_rls:
       link = rls.xpath("./td[1]/a")
       Manga.objects.update_or_create(
