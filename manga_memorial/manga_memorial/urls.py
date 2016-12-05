@@ -18,5 +18,5 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('mango_memory.urls')),
+    url(r'^', include('core.urls')),
 ]

@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 
-from mango_memory.models import Manga
+from core.models import Manga
 from lxml.html import parse
 
 class Command(BaseCommand):

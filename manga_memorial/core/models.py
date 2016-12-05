@@ -23,6 +23,7 @@ class User(AbstractUser):
     ('monthly','monthly'),
     ('bimonthly','bimonthly'),
   )
+  # username = models.CharField(max_length=128)
   private = models.BooleanField(default=True)
   notification_frequency = models.CharField(max_length=32,choices=frequency_choices,default=frequency_choices[0])
   created_at = models.DateTimeField(auto_now_add=True,null=True)

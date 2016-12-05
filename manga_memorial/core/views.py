@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from mango_memory.forms import *
-from .models import User
+from core.forms import *
+from django.contrib.auth import get_user_model
+User = get_user_model()
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.views.decorators.csrf import csrf_protect
@@ -14,9 +15,10 @@ def register(request):
   if request.method == 'POST':
     form = RegistrationForm(request.POST)
     if form.is_valid():
-      user = User.create(
+      user = User.objects.create_user(
         password=form.cleaned_data['password1'],
-        username=form.cleaned_data['username']
+        username=form.cleaned_data['username'],
+        email=form.cleaned_data['email']
       )
       return HttpResponseRedirect('/register/success/')
   else:

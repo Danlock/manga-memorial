@@ -15,11 +15,12 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '#m2av3vjej3j691x@v_=z)24mw$nltey^0)nh^h2jfxi08gpnx'
+SECRET_KEY = 'd&ho1vb)6uaq34l5nw_09f1xm*cmmii67bgd(kwv34#h*kom=='
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -30,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'mango_memory.apps.MangoMemoryConfig',
+    'core.apps.CoreConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -120,5 +121,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-## Custom
-AUTH_USER_MODEL='mango_memory.User'
+AUTH_USER_MODEL='core.User'
+LOGIN_REDIRECT_URL = '/home/'
