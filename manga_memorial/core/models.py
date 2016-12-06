@@ -7,11 +7,20 @@ from django.utils.translation import ugettext_lazy as _
 class Manga(models.Model):
   id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
   name = models.CharField(max_length=2048,null=True)
+  #newline seperated list of alternative names
+  related_names = models.TextField(null=True)
   latest_release = models.CharField(max_length=128,null=True)
   author = models.CharField(max_length=128,default="",null=True)
   relevant_image_url = models.URLField(max_length=512,null=True)
   manga_updates_url = models.URLField(max_length=512,null=True)
   updated_at = models.DateTimeField(auto_now=True,null=True)
+
+  def get_related_list(self):
+    names = []
+    if self['related_names'] != None:
+      names = self['related_names'].split('\n')
+
+    return names
 
 class User(AbstractUser):
   frequency_choices = (

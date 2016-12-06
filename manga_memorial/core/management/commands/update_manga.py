@@ -11,6 +11,7 @@ selectors = dict(
   release=CSSSelector('div.sContainer:nth-child(3) > div:nth-child(1) > div:nth-child(17)'),
   author=CSSSelector('div.sContainer:nth-child(4) > div:nth-child(1) > div:nth-child(17) > a:nth-child(1) > u:nth-child(1)'),
   image=CSSSelector('div.sContainer:nth-child(4) > div:nth-child(1) > div:nth-child(2) > center:nth-child(1) > img:nth-child(1)'),          
+  related=CSSSelector('div.sContainer:nth-child(3) > div:nth-child(1) > div:nth-child(11)'),
   err=CSSSelector('.tab_middle'),
   err_body=CSSSelector('.table_content'),
 )
@@ -53,18 +54,22 @@ class Command(BaseCommand):
 
         author_elem = selectors['author'](root)
         release_elem = selectors['release'](root)
+        related_elem = selectors['related'](root)
         relevant_image_url_elem = selectors['image'](root)
 
-        author = author_elem[0].text_content() if len(author_elem) > 0 else None
+        author = author_elem[0].text_content().strip() if len(author_elem) > 0 else None
         image_url = relevant_image_url_elem[0].get('src') if len(relevant_image_url_elem) > 0 else None
         release = release_elem[0].text_content().split('by')[0].strip() if len(release_elem) > 0 else None
+        related = '\n'.join(related_elem[0].text_content().split('\n')[:-1]) if len(related_elem) > 0 else None
+
 
         Manga.objects.update_or_create(
-          name=nameElem[0].text_content(),
+          name=nameElem[0].text_content().strip(),
           defaults={
             'author': author,
             'manga_updates_url': url,
             'latest_release': release,
+            'related_names': related,
             'relevant_image_url': image_url,
           }  
         )

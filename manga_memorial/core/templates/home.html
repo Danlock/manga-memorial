@@ -1,9 +1,48 @@
-{% load static %}
 {% extends "base.html" %}
 
-{% block title %}Welcome to Django{% endblock %}
-{% block head %}Welcome to Django{% endblock %}
+{% block title %}Home{% endblock %}
 {% block content %}
-  <p>Welcome {{ user.username }} !</p>
-  <a href="/logout/">Logout</a>
+  <div id="wlecome">
+    <p id="welcome_msg">Welcome {{ user.username }} !</p>
+    <p id="explanation_msg">
+      Add bookmarks to manga you are currently reading, 
+      and you'll be notified when a new release appears on mangaupdates.com!
+    </p>
+  </div>
+
+  <form method="post" action=".">
+    {% csrf_token %}
+    <table id="bookmark_form" class="table table-sm tablewidth">
+      {{ form }}
+    </table>
+    <table class="table table-sm tablewidth">  
+      <tr>
+        <input type="submit" value="bookmark" />
+      </tr>
+    </table>
+  </form>
+
+  <table id="bookmark_list" class="table table-hover table-sm tablewidth">
+    <thead class="thead-inverse">
+      <th>Manga</th>
+      <th>Latest Chapter</th>
+      <th>Your Chapter</th>
+    </thead>
+    <tbody>
+    {% for b in bookmarks %}
+      {% if b.manga.latest_release == b.release %}
+        <tr class="bookmark table-danger">
+      {% else %}
+        <tr class="bookmark">
+      {% endif %}      
+
+        <td>{{ b.manga.name }}</td>
+        <td>{{ b.manga.latest_release }}</td>
+        <td>{{ b.release }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+
 {% endblock %}
