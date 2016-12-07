@@ -1,44 +1,49 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}Home{% endblock %}
+{% block head_content %}   
+  <script type="text/javascript" src="{% static 'main.js' %}"></script>
+{% endblock %}
+
 {% block content %}
-  <div id="wlecome">
-    <p id="welcome_msg">Welcome {{ user.username }} !</p>
-    <p id="explanation_msg">
-      Add bookmarks to manga you are currently reading, 
-      and you'll be notified when a new release appears on mangaupdates.com!
-    </p>
+  <div id="welcome" class="table_center">
+    <h3 id="welcome_msg">Welcome {{ user.username }} !</h5>
+    <h6 id="explanation_msg">
+      Manga Memorial can store your manga bookmarks. <br>
+      When mangaupdates.com updates new releases, the corresponding bookmark is highlighted.<br>
+      An aggregation of updates can be emailed periodically to you depending on your profile settings.
+    </h6>
   </div>
 
   <form method="post" action=".">
     {% csrf_token %}
     <table id="bookmark_form" class="table table-sm tablewidth">
       {{ form }}
-    </table>
-    <table class="table table-sm tablewidth">  
-      <tr>
-        <input type="submit" value="bookmark" />
+      <tr class="table_center">
+        <td class="table_center"><input type="submit" value="Add Bookmark" class="btn btn-primary" /></td>
       </tr>
     </table>
   </form>
 
-  <table id="bookmark_list" class="table table-hover table-sm tablewidth">
-    <thead class="thead-inverse">
-      <th>Manga</th>
-      <th>Latest Chapter</th>
-      <th>Your Chapter</th>
+  <table id="bookmark_list" class="table table-bordered table_center table-hover table-sm tablewidth">
+    <thead class="thead-inverse table_center">
+      <th class="table_center">Manga</th>
+      <th class="table_center">Latest Chapter</th>
+      <th class="table_center">Your Chapter (Click to update!)</th>
+      <th class="table_center">Remove</th>
     </thead>
     <tbody>
     {% for b in bookmarks %}
       {% if b.manga.latest_release == b.release %}
-        <tr class="bookmark table-danger">
+        <tr class="bookmark_row table-danger" id="{{ b.id }}" >
       {% else %}
-        <tr class="bookmark">
-      {% endif %}      
+        <tr class="bookmark_row" id="{{ b.id }}" >
+      {% endif %}
 
-        <td>{{ b.manga.name }}</td>
+        <td><a href="{{ b.manga.manga_updates_url }}">{{ b.manga.name }}</a></td>
         <td>{{ b.manga.latest_release }}</td>
-        <td>{{ b.release }}</td>
+        <td class="bookmark_release" data-name="release" data-pk="{{ b.id }}" data-url="/bookmark/" data-type="text" data-title="Enter Chapter" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">{{ b.release }}</td>
+        <td class="bookmark_button"><input type="submit" value="X" class="btn btn-link" /></td>
       </tr>
     {% endfor %}
     </tbody>

@@ -12,10 +12,18 @@
   width: 50%;
 }
 
+.table_center {
+  text-align: center;
+}
+
 #bookmark_list {
 
 }
 
 #bookmark_form {
+  border-collapse: separate;
+}
+
+#div_list__manga_list {
 
 }

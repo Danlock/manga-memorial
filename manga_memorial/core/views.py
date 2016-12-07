@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
+from django.db.models import Q
 
 User = get_user_model()
 
@@ -51,8 +52,9 @@ def home(request):
   if request.method == 'POST':
     form = BookmarkForm(request.POST)
     if form.is_valid():
+      query = Q(name=form.cleaned_data['manga']) | Q(related_names__contains=form.cleaned_data['manga'])
       bm = models.Bookmark(
-        manga=models.Manga.objects.get(name=form.cleaned_data['manga']),
+        manga=models.Manga.objects.get(query),
         release=form.cleaned_data['release'],
         user=request.user,
       )
@@ -77,6 +79,11 @@ def home(request):
 
 @login_required
 @csrf_protect
-def delete_bookmark(request):
+def edit_bookmark(request):
+  if request.method == "POST":
+    models.Bookmark(pk=request.POST['pk'],release=request.POST['value']).save(update_fields=['release'])
   if request.method == "DELETE":
-    print(request.POST)
+    print("delete return",request.body.decode('utf-8'))
+    models.Bookmark(pk=request.body.decode('utf-8')).delete()
+
+  return HttpResponse()

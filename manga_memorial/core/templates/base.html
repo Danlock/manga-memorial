@@ -2,34 +2,40 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-  {% block head_content %} {% endblock %}
   <link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap/bootstrap.min.css' %}" />
-  <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}" />
+  <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script> 
+  <script type="text/javascript" src="{% static 'lib/bootstrap/bootstrap.min.js' %}"></script>
 
-  <script type="text/javascript" src="{% static "lib/bootstrap/bootstrap.min.js" %}"></script>
-  <script type="text/javascript" src="{% static "lib/utilities.js" %}"></script>
+  <link rel="stylesheet" href="{% static 'lib/bootstrap/bootstrap3-editable/css/bootstrap-editable.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}" />
+  <script src="{% static 'lib/bootstrap/bootstrap3-editable/js/bootstrap-editable.min.js' %}"></script>
+
+  {% block head_content %} {% endblock %}
+
   <title>Manga Memorial |
     {% block title %}{% endblock %}</title>
 </head>
 <body>
 
-  <nav class="navbar navbar-light bg-faded">
-    <a class="navbar-brand" href="#">Manga Memorial</a>
-    <ul class="nav navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="/home/">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/home/">Profile</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/login/">Login</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/logout/">Logout</a>
-      </li>
-    </ul>
-  </nav>
+  <div class="container">
+    <nav class="navbar navbar-light bg-faded">
+      <a class="navbar-brand" href="#">Manga Memorial</a>
+      <ul class="nav navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/home/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/home/">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/login/">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout/">Logout</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
 
   <h1>{% block head %}{% endblock %}</h1>
   {% block content %}{% endblock %}    

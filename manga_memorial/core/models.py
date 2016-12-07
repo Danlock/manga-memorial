@@ -17,9 +17,9 @@ class Manga(models.Model):
 
   def get_related_list(self):
     names = []
-    if self['related_names'] != None:
-      names = self['related_names'].split('\n')
-
+    if self.related_names != None:
+      names = self.related_names.split('\n')
+    names.append(self.name)
     return names
 
 class User(AbstractUser):
@@ -44,3 +44,20 @@ class Bookmark(models.Model):
   manga = models.ForeignKey(Manga,on_delete=models.SET_NULL,null=True)
   release = models.CharField(max_length=128,null=True)
   updated_at = models.DateTimeField(auto_now=True,null=True)
+
+class MangaList():
+  manga_list = None
+
+  @classmethod
+  def getMangaList(self):
+    return self.manga_list
+  @classmethod
+  def getMangaListForAutocomplete(self):
+    return [ (m,m) for m in self.manga_list ]
+  @classmethod
+  def updateMangaList(self):
+    sorted_mangas = [item for sm in Manga.objects.all() for item in sm.get_related_list()]
+    sorted_mangas.sort()
+    self.manga_list = sorted_mangas
+
+MangaList.updateMangaList()

@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 
-from core.models import Manga
+from core.models import Manga,MangaList
 from lxml.html import parse
 
 class Command(BaseCommand):
@@ -21,4 +21,5 @@ class Command(BaseCommand):
         },
       )
     
+    MangaList.updateMangaList()
 

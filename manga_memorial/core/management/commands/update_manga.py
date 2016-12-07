@@ -1,8 +1,9 @@
 import time
 from django.core.management.base import BaseCommand, CommandError
-from core.models import Manga
+from core.models import Manga,MangaList
 from lxml.html import parse
 from lxml.cssselect import CSSSelector
+
 
 MAX_MANGA_ID = 999999
 CONSECUTIVE_ERROR_TOLERANCE = 25
@@ -76,3 +77,4 @@ class Command(BaseCommand):
       index += 1
 
     print('This took {0} seconds to run.'.format(time.time() - start_time))
+    MangaList.updateMangaList()
