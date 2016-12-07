@@ -7,8 +7,8 @@
   <script type="text/javascript" src="{% static 'lib/bootstrap/bootstrap.min.js' %}"></script>
 
   <link rel="stylesheet" href="{% static 'lib/bootstrap/bootstrap3-editable/css/bootstrap-editable.css' %}" />
-  <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}" />
   <script src="{% static 'lib/bootstrap/bootstrap3-editable/js/bootstrap-editable.min.js' %}"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}" />
 
   {% block head_content %} {% endblock %}
 
@@ -28,6 +28,9 @@
           <a class="nav-link" href="/home/">Profile</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="/register/">Register</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="/login/">Login</a>
         </li>
         <li class="nav-item">
@@ -38,6 +41,14 @@
   </div>
 
   <h1>{% block head %}{% endblock %}</h1>
+  <div id="welcome" class="table_center">
+    <h3 id="welcome_msg">Welcome {% block welcome %}{% endblock %}!</h5>
+    <h6 id="explanation_msg">
+      Manga Memorial stores your manga bookmarks. <br>
+      When mangaupdates.com gets new releases, the relevant bookmarks are highlighted.<br>
+      An aggregation of updates can be emailed periodically depending on your profile settings.
+    </h6>
+  </div>
   {% block content %}{% endblock %}    
 </body>
 </html>

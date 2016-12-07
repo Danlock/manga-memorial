@@ -12,6 +12,14 @@
   width: 50%;
 }
 
+table > tbody > tr > td {
+  text-align: center;
+}
+
+table > tbody > tr > th {
+  text-align: center;
+}
+
 .table_center {
   text-align: center;
 }
@@ -22,6 +30,7 @@
 
 #bookmark_form {
   border-collapse: separate;
+  width: 25%;
 }
 
 #div_list__manga_list {
