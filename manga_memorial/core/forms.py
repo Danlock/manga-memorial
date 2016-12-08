@@ -6,7 +6,6 @@ from . import models
 
 User = get_user_model()
 
-
 #Custom widgets
 class ListTextWidget(forms.TextInput):
   def __init__(self, data_list, name, *args, **kwargs):
@@ -59,3 +58,12 @@ class BookmarkForm(forms.Form):
       raise forms.ValidationError(_("That manga does not exist on mangaupdates.com."))
     else:
       return self.cleaned_data['manga']
+
+class ProfileForm(forms.Form):
+  email = forms.EmailField(required=False,widget=forms.TextInput(attrs=dict(max_length=128)), label=_("Email"))
+  notifications = forms.ChoiceField(choices=models.User.frequency_choices, label=_("Notification Frequency"))
+
+  def clean_email(self):
+    if ('email' not in self.cleaned_data):
+      self.cleaned_data['email'] = ""
+    return self.cleaned_data['email']

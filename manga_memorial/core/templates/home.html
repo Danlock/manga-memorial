@@ -11,7 +11,7 @@
   <form method="post" action=".">
     {% csrf_token %}
     <table id="bookmark_form" class="table align-middle table-sm tablewidth">
-      {{ form }}
+      {{ form.as_table }}
       <tr class="table_center">
         <td class="table_center" colspan="2"><input type="submit" value="Add Bookmark" class="btn btn-primary" /></td>
       </tr>

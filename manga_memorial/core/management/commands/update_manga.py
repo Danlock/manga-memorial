@@ -26,7 +26,7 @@ class Command(BaseCommand):
     base_url = 'http://www.mangaupdates.com/series.html?id='
 
     consecutive_errors = 0
-    index = 1
+    index = 15000
 
     while (index < MAX_MANGA_ID):
       if (consecutive_errors >= CONSECUTIVE_ERROR_TOLERANCE):
@@ -34,7 +34,13 @@ class Command(BaseCommand):
         break
 
       url = base_url + str(index)
-      root = parse(url).getroot()
+      
+      try:
+        root = parse(url).getroot()
+      except Exception:
+        print('Parse failed on ',url,'. Check your internet connection.')
+        break;
+
       #If we have reached the an error page skip it
       err_elem = selectors['err'](root)
       err_body_elem = selectors['err_body'](root)

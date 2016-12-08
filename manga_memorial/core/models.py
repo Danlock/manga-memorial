@@ -32,8 +32,18 @@ class User(AbstractUser):
     ('monthly','monthly'),
     ('bimonthly','bimonthly'),
   )
+  frequency_choices_hours = {
+    'never': -1,
+    'daily':  24,
+    'bidaily':  48,
+    'weekly': 24*7,
+    'biweekly': 24*14,
+    'monthly':  24*30,
+    'bimonthly':  24*60,
+  }
   private = models.BooleanField(default=True)
-  notification_frequency = models.CharField(max_length=32,choices=frequency_choices,default=frequency_choices[0])
+  notification_frequency = models.CharField(max_length=32,choices=frequency_choices,default=frequency_choices[0][0])
+  emailed_at =models.DateTimeField(null=True)
   created_at = models.DateTimeField(auto_now_add=True,null=True)
   updated_at = models.DateTimeField(auto_now=True,null=True)
 
@@ -46,18 +56,22 @@ class Bookmark(models.Model):
   updated_at = models.DateTimeField(auto_now=True,null=True)
 
 class MangaList():
-  manga_list = None
+  manga_list = []
 
   @classmethod
   def getMangaList(self):
     return self.manga_list
-  @classmethod
-  def getMangaListForAutocomplete(self):
-    return [ (m,m) for m in self.manga_list ]
+
   @classmethod
   def updateMangaList(self):
     sorted_mangas = [item for sm in Manga.objects.all() for item in sm.get_related_list()]
     sorted_mangas.sort()
     self.manga_list = sorted_mangas
 
-MangaList.updateMangaList()
+  @classmethod
+  def getMangaListForAutocomplete(self):
+    self.updateMangaList()
+    return [ (m,m) for m in self.manga_list ]
+
+
+# MangaList.updateMangaList()

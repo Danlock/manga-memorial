@@ -40,6 +40,29 @@ def logout_page(request):
   logout(request)
   return HttpResponseRedirect('/')
 
+@login_required
+@csrf_protect
+def profile(request):
+  if request.method == 'POST':
+    form = ProfileForm(request.POST)
+    if form.is_valid():
+      print("isudf",models.User.objects.filter(id=request.user.id).update(
+        email=form.cleaned_data['email'],
+        notification_frequency=form.cleaned_data['notifications'],
+      ))
+      return HttpResponseRedirect('/profile/')
+  else:
+    form = ProfileForm()
+  
+  variables = RequestContext(request, {
+    'form': form,
+    'user': request.user,
+  })
+
+  return render_to_response(
+    'profile.html',
+    variables,
+  )
 
 @login_required
 @csrf_protect

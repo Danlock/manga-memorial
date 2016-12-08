@@ -1,3 +1,4 @@
+private_settings.py
 venv
 db.sqlite3
 __pycache__/
