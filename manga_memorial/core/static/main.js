@@ -30,24 +30,40 @@ $.ajaxSetup({
         }
     }
 });
-
+var mangas = null;
+$.ajax({
+  type: "GET",
+  url: "/manga/list/",
+  cache: false,
+  //pass the button as the context for ajax callback methods
+  context: this,
+  success: function (html) {
+    mangas = html.split("\n");
+    console.log("returned manga list",mangas);
+  }
+})
 
 $(document).ready(function() {
   $('.bookmark_release').editable();
-  $(".bookmark_button").click(function () {
-      var tr = $(this).closest('tr');
-      var location = "/bookmark/";
-      $.ajax({
-          type: "DELETE",
-          url: location,
-          data: tr.attr('id'),
-          cache: false,
-          //pass the button as the context for ajax callback methods
-          context: this,
-          success: function (html) {
-              //find the tr in which the clicked button belongs to and delete it
-              tr.remove()
-          }
-      });
+  $('#id_manga').autocomplete({
+    source: mangas,
   });
+
+  $(".bookmark_button").click(function () {
+    var tr = $(this).closest('tr');
+    var location = "/bookmark/";
+    $.ajax({
+      type: "DELETE",
+      url: location,
+      data: tr.attr('id'),
+      cache: false,
+      //pass the button as the context for ajax callback methods
+      context: this,
+      success: function (html) {
+        //find the tr in which the clicked button belongs to and delete it
+        tr.remove()
+      }
+    });
+  });
+
 });

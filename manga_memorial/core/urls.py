@@ -10,6 +10,7 @@ urlpatterns = [
   url(r'^register/$', register),
   url(r'^profile/$', profile),
   url(r'^home/$', home),
+  url(r'^manga/list/$', getMangaList),
   url(r'^bookmark/$', edit_bookmark),
   url(r'^password_change/$', password_change),
   url(r'^password_change/done/$', password_change_done),

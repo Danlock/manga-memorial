@@ -100,6 +100,9 @@ def home(request):
     'home.html',
     variables,
   )
+@login_required
+def getMangaList(request):
+  return HttpResponse("\n".join(models.MangaList.getMangaList()))
 
 @login_required
 @csrf_protect

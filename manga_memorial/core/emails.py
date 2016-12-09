@@ -37,7 +37,6 @@ def notifyAllUsers():
         user.emailed_at = datetime.now(timezone.utc)
         user.save()
 
-  print('emails:',len(emails))
   if (len(emails) > 0):
     conn.send_messages(emails)
   return

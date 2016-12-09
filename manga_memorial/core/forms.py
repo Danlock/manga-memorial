@@ -49,7 +49,9 @@ class RegistrationForm(forms.Form):
       return self.cleaned_data
 
 class BookmarkForm(forms.Form):
-  manga = forms.CharField(widget=ListTextWidget(attrs=dict(required=True, max_length=2048), data_list=models.MangaList.getMangaListForAutocomplete(), name="manga_list"), label=_("Manga"))
+  # manga = forms.CharField(widget=ListTextWidget(attrs=dict(required=True, max_length=2048), data_list=models.MangaList.getMangaListForAutocomplete(), name="manga_list"), label=_("Manga"))
+  manga = forms.CharField(widget=forms.TextInput(attrs=dict(required=True, max_length=128)), label=_("Manga"))
+
   release = forms.CharField(widget=forms.TextInput(attrs=dict(required=True, max_length=128)), label=_("Chapter"))
 
   def clean_manga(self):
@@ -60,7 +62,7 @@ class BookmarkForm(forms.Form):
       return self.cleaned_data['manga']
 
 class ProfileForm(forms.Form):
-  email = forms.EmailField(required=False,widget=forms.TextInput(attrs=dict(max_length=128)), label=_("Email"))
+  email = forms.EmailField(widget=forms.TextInput(attrs=dict(max_length=128)), label=_("Email"))
   notifications = forms.ChoiceField(choices=models.User.frequency_choices, label=_("Notification Frequency"))
 
   def clean_email(self):
