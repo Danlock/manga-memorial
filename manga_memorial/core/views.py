@@ -46,13 +46,19 @@ def profile(request):
   if request.method == 'POST':
     form = ProfileForm(request.POST)
     if form.is_valid():
-      print("isudf",models.User.objects.filter(id=request.user.id).update(
-        email=form.cleaned_data['email'],
-        notification_frequency=form.cleaned_data['notifications'],
-      ))
+      data = {
+        'notification_frequency': form.cleaned_data['notifications'],
+      }
+      #if user updated their email, then save it
+      if form.cleaned_data['email'] != None:
+        data['email'] = form.cleaned_data['email']
+      models.User.objects.filter(id=request.user.id).update(**data)
       return HttpResponseRedirect('/profile/')
   else:
-    form = ProfileForm()
+    form = ProfileForm(initial={
+      'email': request.user.email,
+      'notifications':request.user.notification_frequency,
+    })
   
   variables = RequestContext(request, {
     'form': form,
@@ -70,7 +76,7 @@ def home(request):
   if request.method == 'POST':
     form = BookmarkForm(request.POST)
     if form.is_valid():
-      query = Q(name=form.cleaned_data['manga']) | Q(related_names__contains=form.cleaned_data['manga'])
+      query = Q(name=form.cleaned_data['manga']) | Q(related_names__contains=form.cleaned_data['manga']+"\n")
       bm = models.Bookmark(
         manga=models.Manga.objects.get(query),
         release=form.cleaned_data['release'],

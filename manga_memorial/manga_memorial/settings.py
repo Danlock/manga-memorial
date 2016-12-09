@@ -130,3 +130,6 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL='core.User'
 LOGIN_REDIRECT_URL = '/home/'
 LOGIN_URL = '/login/'
+
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
