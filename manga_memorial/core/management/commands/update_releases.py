@@ -14,14 +14,20 @@ class Command(BaseCommand):
 
     for rls in today_rls:
       link = rls.xpath("./td[1]/a")
+      group = rls.xpath("./td//a[@title='Group Info']")[0]
+      group_name = group.text_content()
+      group_url = group.get('href')
+
       name = rls.xpath("./td[@class='pad']")[0].text_content()
       name = name[:-1] if name[-1:] == "*" else name
-      print("current manga",name)
+      print("Updating ",name)
       Manga.objects.update_or_create(
         name=name,
         defaults={
           'latest_release': rls.xpath("./td[2]")[0].text_content(),
-          'manga_updates_url':link[0].get('href') if len(link) > 0 else None,
+          'manga_updates_url': link[0].get('href') if len(link) > 0 else None,
+          'translator': group_name,
+          'translator_url': group_url,
         },
       )
     

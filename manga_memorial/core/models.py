@@ -10,6 +10,8 @@ class Manga(models.Model):
   #newline seperated list of alternative names
   related_names = models.TextField(null=True)
   latest_release = models.CharField(max_length=128,null=True)
+  translator = models.CharField(max_length=256,default="",null=True)
+  translator_url = models.URLField(max_length=512,null=True)
   author = models.CharField(max_length=128,default="",null=True)
   relevant_image_url = models.URLField(max_length=512,null=True)
   manga_updates_url = models.URLField(max_length=512,null=True)
@@ -70,7 +72,10 @@ class MangaList():
 
   @classmethod
   def getMangaListForAutocomplete(self):
-    self.updateMangaList()
+    try:
+      self.updateMangaList()
+    except Exception:
+      print("WARNING: Failed to update manga list!")
     return [ (m,m) for m in self.manga_list ]
 
 

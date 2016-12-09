@@ -13,6 +13,7 @@ selectors = dict(
   author=CSSSelector('div.sContainer:nth-child(4) > div:nth-child(1) > div:nth-child(17) > a:nth-child(1) > u:nth-child(1)'),
   image=CSSSelector('div.sContainer:nth-child(4) > div:nth-child(1) > div:nth-child(2) > center:nth-child(1) > img:nth-child(1)'),          
   related=CSSSelector('div.sContainer:nth-child(3) > div:nth-child(1) > div:nth-child(11)'),
+  group=CSSSelector('div.sContainer:nth-child(3) > div:nth-child(1) > div:nth-child(17) > a:nth-child(3)'),
   err=CSSSelector('.tab_middle'),
   err_body=CSSSelector('.table_content'),
 )
@@ -20,13 +21,12 @@ selectors = dict(
 
 class Command(BaseCommand):
   help = 'Grabs all manga titles and names from Bakaupdates. Expensive.'
-
   def handle(self,*args, **options):
     start_time = time.time()
     base_url = 'http://www.mangaupdates.com/series.html?id='
 
     consecutive_errors = 0
-    index = 15000
+    index = 1
 
     while (index < MAX_MANGA_ID):
       if (consecutive_errors >= CONSECUTIVE_ERROR_TOLERANCE):
@@ -34,7 +34,6 @@ class Command(BaseCommand):
         break
 
       url = base_url + str(index)
-      
       try:
         root = parse(url).getroot()
       except Exception:
@@ -59,17 +58,20 @@ class Command(BaseCommand):
       if (len(nameElem) > 0):
         consecutive_errors = 0
 
+        group_elem = selectors['group'](root)
         author_elem = selectors['author'](root)
         release_elem = selectors['release'](root)
         related_elem = selectors['related'](root)
         relevant_image_url_elem = selectors['image'](root)
 
+        group_url = group_elem[0].get('href').strip() if len(group_elem) > 0 else None
+        group_text = group_elem[0].text_content().strip() if len(group_elem) > 0 else None
         author = author_elem[0].text_content().strip() if len(author_elem) > 0 else None
         image_url = relevant_image_url_elem[0].get('src') if len(relevant_image_url_elem) > 0 else None
         release = release_elem[0].text_content().split('by')[0].strip() if len(release_elem) > 0 else None
         related = '\n'.join(related_elem[0].text_content().split('\n')[:-1]) if len(related_elem) > 0 else None
 
-
+        print("Updating ",nameElem[0].text_content().strip())
         Manga.objects.update_or_create(
           name=nameElem[0].text_content().strip(),
           defaults={
@@ -78,6 +80,8 @@ class Command(BaseCommand):
             'latest_release': release,
             'related_names': related,
             'relevant_image_url': image_url,
+            'translator': group_text,
+            'translator_url': group_url,
           }  
         )
       index += 1

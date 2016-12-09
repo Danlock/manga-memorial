@@ -13,6 +13,7 @@ def relevantBookmarks(user):
   return bookmarks
 
 def shouldEmail(user):
+  return True
   hours = User.frequency_choices_hours[user.notification_frequency]
   if (hours == -1):
     return False
@@ -28,6 +29,7 @@ def notifyAllUsers():
   for user in users:
     if (shouldEmail(user)):
       bookmarks = relevantBookmarks(user)
+      print('bookmarks:',len(bookmarks))
       if (len(bookmarks) > 0):
         message = str(bookmarks)
         emails.append(EmailMessage(
