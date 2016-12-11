@@ -20,3 +20,4 @@ private = {
 5. python manage.py migrate
 6. python manage.py update_manga (takes a long time to complete)
 7. python manage.py runserver
+8. Set cronojob to run python manage.py update_releases every 6 hours or so
