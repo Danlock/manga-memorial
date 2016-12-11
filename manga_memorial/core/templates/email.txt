@@ -1,0 +1,7 @@
+Bookmark list
+
+{% for b in bookmarks %}
+    {{ b.manga.manga_updates_url }}
+    {{ b.manga.name }}
+    {{ b.manga.latest_release }}
+{% endfor %}

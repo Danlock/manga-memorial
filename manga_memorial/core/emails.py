@@ -1,7 +1,8 @@
 from .models import User,Bookmark
 from django.db.models import Q
-from django.core.mail import get_connection,EmailMessage
+from django.core.mail import get_connection,EmailMessage,EmailMultiAlternatives
 from datetime import datetime,timedelta,timezone
+from django.template.loader import render_to_string
 
 def relevantBookmarks(user): 
   bookmarks = []
@@ -27,13 +28,14 @@ def notifyAllUsers():
     if (shouldEmail(user)):
       bookmarks = relevantBookmarks(user)
       if (len(bookmarks) > 0):
-        message = str(bookmarks)
-        emails.append(EmailMessage(
+        email = EmailMultiAlternatives(
           'Your {} manga release notifications!'.format(user.notification_frequency),
-          message,
+          render_to_string('templates/email.txt', {'bookmarks': bookmarks}),
           'mangamemorialupdates@gmail.com',
           [user.email],
-        ))
+        )
+        email.attach_alternative(render_to_string('templates/email.html', {'bookmarks': bookmarks}),"text/html")
+        emails.append(email)
         user.emailed_at = datetime.now(timezone.utc)
         user.save()
 
