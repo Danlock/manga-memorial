@@ -9,9 +9,7 @@
   <link rel="stylesheet" href="{% static 'lib/bootstrap/bootstrap3-editable/css/bootstrap-editable.css' %}" />
   <script src="{% static 'lib/bootstrap/bootstrap3-editable/js/bootstrap-editable.min.js' %}"></script>
   <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}" />
-
   {% block head_content %} {% endblock %}
-
   <title>Manga Memorial |
     {% block title %}{% endblock %}</title>
 </head>
@@ -40,15 +38,16 @@
     </nav>
   </div>
 
-  <h1>{% block head %}{% endblock %}</h1>
-  <div id="welcome" class="table_center">
+<!--   <h2 class="center_this lower_spacer">{% block head %}{% endblock %}</h1>
+ -->  <div id="welcome" class="table_center">
     <h3 id="welcome_msg">Welcome {% block welcome %}{% endblock %}!</h5>
     <h6 id="explanation_msg">
-      Manga Memorial stores your manga bookmarks. <br>
-      When mangaupdates.com gets new releases, the relevant bookmarks are highlighted.<br>
+      Manga Memorial memorizes manga bookmarks. <br>
+      When mangaupdates.com gets new releases, the relevant bookmarks are updated.<br>
       Updated bookmarks can be emailed to you periodically depending on your profile settings. 
     </h6>
   </div>
-  {% block content %}{% endblock %}    
+  {% block content %}{% endblock %}  
+  <div class="upper_spacer">&nbsp</div>  
 </body>
 </html>

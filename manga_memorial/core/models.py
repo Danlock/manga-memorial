@@ -27,6 +27,7 @@ class Manga(models.Model):
 class User(AbstractUser):
   frequency_choices = (
     ('never','never'),
+    ('noonly','noonly'),
     ('daily','daily'),
     ('bidaily','bidaily'),
     ('weekly','weekly'),
@@ -36,6 +37,7 @@ class User(AbstractUser):
   )
   frequency_choices_hours = {
     'never': -1,
+    'noonly': 12,
     'daily':  24,
     'bidaily':  48,
     'weekly': 24*7,

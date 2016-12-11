@@ -1,0 +1,23 @@
+  <table id="bookmark_list" class="table table-bordered table_center table-hover table-sm tablewidth">
+    <thead class="thead-inverse table_center">
+      <th class="table_center">Manga</th>
+      <th class="table_center">Latest Chapter</th>
+      <th class="table_center">Your Chapter (Click to update!)</th>
+      <th class="table_center">Remove</th>
+    </thead>
+    <tbody>
+    {% for b in bookmarks %}
+      {% if b.manga.latest_release == b.release %}
+        <tr class="bookmark_row table-danger" id="{{ b.id }}" >
+      {% else %}
+        <tr class="bookmark_row" id="{{ b.id }}" >
+      {% endif %}
+
+        <td class="align-middle"><a href="{{ b.manga.manga_updates_url }}">{{ b.manga.name }}</a></td>
+        <td class="align-middle">{{ b.manga.latest_release }}</td>
+        <td class="bookmark_release align-middle" data-name="release" data-pk="{{ b.id }}" data-url="/bookmark/" data-type="text" data-title="Enter Chapter" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">{{ b.release }}</td>
+        <td class="bookmark_button align-middle"><input type="submit" value="&nbsp" class="btn btn-outline-danger btn-block" /></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>

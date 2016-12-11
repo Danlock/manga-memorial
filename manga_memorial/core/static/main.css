@@ -6,10 +6,43 @@
 
 }
 
+html {
+    background: url(img/kaibabg.png) no-repeat center fixed;
+    background-size: cover;
+    color: white;
+}
+
+body {
+  filter: alpha(opacity=20); // IE 5-7
+  opacity: 0.2;
+  background-color: rgba(0, 0 , 0, 0.2);
+  color: white;
+}
+
 .tablewidth {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+}
+
+.center_this {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+p {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.upper_spacer {
+  margin-top: 50px;
+}
+
+.lower_spacer {
+  margin-bottom: 50px;
 }
 
 table > tbody > tr > td {

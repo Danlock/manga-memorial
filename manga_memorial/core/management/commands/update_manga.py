@@ -65,6 +65,7 @@ class Command(BaseCommand):
         related_elem = selectors['related'](root)
         relevant_image_url_elem = selectors['image'](root)
 
+        name = nameElem[0].text_content().strip()
         group_url = group_elem[0].get('href').strip() if len(group_elem) > 0 else None
         group_text = group_elem[0].text_content().strip() if len(group_elem) > 0 else None
         author = author_elem[0].text_content().strip() if len(author_elem) > 0 else None
@@ -72,9 +73,9 @@ class Command(BaseCommand):
         release = release_elem[0].text_content().split('by')[0].strip() if len(release_elem) > 0 else None
         related = list(related_elem[0].itertext())[:-1] if len(related_elem) > 0 else None
 
-        print("Updating ",nameElem[0].text_content().strip())
+        print("Updating ",name)
         Manga.objects.update_or_create(
-          name=nameElem[0].text_content().strip(),
+          name=name,
           defaults={
             'author': author,
             'manga_updates_url': url,
