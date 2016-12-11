@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
-from .private_settings import p_settings 
+from .private_settings import private 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'd&ho1vb)6uaq34l5nw_09f1xm*cmmii67bgd(kwv34#h*kom=='
+SECRET_KEY = private['DJANGO_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -79,11 +79,11 @@ WSGI_APPLICATION = 'manga_memorial.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': p_settings['PG_NAME'],
-        'USER': p_settings['PG_USER'],
-        'PASSWORD': p_settings['PG_PASS'],
-        'HOST': p_settings['PG_HOST'],
-        'PORT': p_settings['PG_PORT'],
+        'NAME': private['PG_NAME'],
+        'USER': private['PG_USER'],
+        'PASSWORD': private['PG_PASS'],
+        'HOST': private['PG_HOST'],
+        'PORT': private['PG_PORT'],
 
     }
 }

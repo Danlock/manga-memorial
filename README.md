@@ -1,12 +1,12 @@
 #Manga.memorial
 
-Django website to store virtual chapter bookmarks for manga, and notify the user of new manga chapters via email. Mangaupdates will be used for manga data.
+Django website to store virtual chapter bookmarks for manga, and notify the user of new manga chapters via email. Mangaupdates will be scraped using lxml for manga and new release data.
 
 #Build info
 1. Use virtualenv and pip install using the requirements.txt
 2. create a file called private_settings.py that looks like so:
 ```
-p_settings = {
+private = {
       'DJANGO_SECRET_KEY': 'randum',
       'PG_NAME': 'database_name',
       'PG_USER': 'username',
