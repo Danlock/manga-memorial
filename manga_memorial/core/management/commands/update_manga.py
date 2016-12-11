@@ -2,6 +2,7 @@ import time
 from django.core.management.base import BaseCommand, CommandError
 from core.models import Manga,MangaList
 from lxml.html import parse
+from lxml.etree import tostring
 from lxml.cssselect import CSSSelector
 
 
@@ -69,7 +70,7 @@ class Command(BaseCommand):
         author = author_elem[0].text_content().strip() if len(author_elem) > 0 else None
         image_url = relevant_image_url_elem[0].get('src') if len(relevant_image_url_elem) > 0 else None
         release = release_elem[0].text_content().split('by')[0].strip() if len(release_elem) > 0 else None
-        related = related_elem[0].text_content().split('\n')[:-1] if len(related_elem) > 0 else None
+        related = list(related_elem[0].itertext())[:-1] if len(related_elem) > 0 else None
 
         print("Updating ",nameElem[0].text_content().strip())
         Manga.objects.update_or_create(

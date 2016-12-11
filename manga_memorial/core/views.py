@@ -76,7 +76,7 @@ def home(request):
   if request.method == 'POST':
     form = BookmarkForm(request.POST)
     if form.is_valid():
-      query = Q(name=form.cleaned_data['manga']) | Q(related_names__contains=form.cleaned_data['manga'])
+      query = Q(name=form.cleaned_data['manga']) | Q(related_names__contains=[form.cleaned_data['manga']])
       bm = models.Bookmark(
         manga=models.Manga.objects.get(query),
         release=form.cleaned_data['release'],
