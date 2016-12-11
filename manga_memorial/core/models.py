@@ -1,14 +1,14 @@
 import uuid
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import ugettext_lazy as _
 
 # Create your models here.
 class Manga(models.Model):
   id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-  name = models.CharField(max_length=2048,null=True)
-  #newline seperated list of alternative names
-  related_names = models.TextField(null=True)
+  name = models.CharField(max_length=4096,null=True)
+  related_names = ArrayField(models.CharField(max_length=4096,null=True),default=list)
   latest_release = models.CharField(max_length=128,null=True)
   translator = models.CharField(max_length=256,default="",null=True)
   translator_url = models.URLField(max_length=512,null=True)
@@ -19,8 +19,8 @@ class Manga(models.Model):
 
   def get_related_list(self):
     names = []
-    if self.related_names != None:
-      names = self.related_names.split('\n')
+    if len(self.related_names) > 0:
+      names.extend(self.related_names)
     names.append(self.name)
     return names
 

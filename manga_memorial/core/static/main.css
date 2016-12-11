@@ -24,6 +24,10 @@ table > tbody > tr > th {
   text-align: center;
 }
 
+#id_manga {
+  width: 50%;
+}
+
 #bookmark_list {
 
 }

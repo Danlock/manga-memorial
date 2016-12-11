@@ -76,7 +76,7 @@ def home(request):
   if request.method == 'POST':
     form = BookmarkForm(request.POST)
     if form.is_valid():
-      query = Q(name=form.cleaned_data['manga']) | Q(related_names__contains=form.cleaned_data['manga']+"\n")
+      query = Q(name=form.cleaned_data['manga']) | Q(related_names__contains=form.cleaned_data['manga'])
       bm = models.Bookmark(
         manga=models.Manga.objects.get(query),
         release=form.cleaned_data['release'],
@@ -100,6 +100,7 @@ def home(request):
     'home.html',
     variables,
   )
+
 @login_required
 def getMangaList(request):
   return HttpResponse("\n".join(models.MangaList.getMangaList()))

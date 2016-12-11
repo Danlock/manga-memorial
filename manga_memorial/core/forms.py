@@ -50,9 +50,8 @@ class RegistrationForm(forms.Form):
 
 class BookmarkForm(forms.Form):
   # manga = forms.CharField(widget=ListTextWidget(attrs=dict(required=True, max_length=2048), data_list=models.MangaList.getMangaListForAutocomplete(), name="manga_list"), label=_("Manga"))
-  manga = forms.CharField(widget=forms.TextInput(attrs=dict(required=True, max_length=128)), label=_("Manga"))
-
-  release = forms.CharField(widget=forms.TextInput(attrs=dict(required=True, max_length=128)), label=_("Chapter"))
+  manga = forms.ChoiceField(required=True, label=_("Manga"),choices=models.MangaList.getMangaListForAutocomplete())
+  release = forms.CharField(required=True,widget=forms.TextInput(attrs=dict(required=True, max_length=128)), label=_("Chapter"))
 
   def clean_manga(self):
     mangas = models.MangaList.getMangaList()
