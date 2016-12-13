@@ -5,11 +5,37 @@
 .manga_old {
 
 }
+::-webkit-input-placeholder {
+   text-align: center;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   text-align: center; 
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   text-align: center;  
+}
+
+:-ms-input-placeholder {  
+   text-align: center; 
+}
+.select2 {
+  color: black !important;
+}
+
+.select2-container {
+  color: black !important;
+}
 
 html {
     background: url(img/kaibabg.png) no-repeat center fixed;
     background-size: cover;
     color: white;
+}
+
+.black-font {
+  color: black;
 }
 
 body {
@@ -49,6 +75,9 @@ p {
   margin-bottom: 20px;
 }
 
+.standard-td-height {
+  height: 40px;
+}
 
 table > tbody > tr > td {
   text-align: center;

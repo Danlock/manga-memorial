@@ -39,7 +39,8 @@ class Command(BaseCommand):
         root = parse(url).getroot()
       except Exception:
         print('Parse failed on ',url,'. Check your internet connection.')
-        break;
+        consecutive_errors += 1
+        continue
 
       #If we have reached the an error page skip it
       err_elem = selectors['err'](root)
@@ -89,4 +90,3 @@ class Command(BaseCommand):
       index += 1
 
     print('This took {0} seconds to run.'.format(time.time() - start_time))
-    MangaList.updateMangaList()

@@ -30,11 +30,11 @@ def notifyAllUsers():
       if (len(bookmarks) > 0):
         email = EmailMultiAlternatives(
           'Your {} manga release notifications!'.format(user.notification_frequency),
-          render_to_string('templates/email.txt', {'bookmarks': bookmarks}),
+          render_to_string('email.txt', {'bookmarks': bookmarks}),
           'mangamemorialupdates@gmail.com',
           [user.email],
         )
-        email.attach_alternative(render_to_string('templates/email.html', {'bookmarks': bookmarks}),"text/html")
+        email.attach_alternative(render_to_string('email.html', {'bookmarks': bookmarks}),"text/html")
         emails.append(email)
         user.emailed_at = datetime.now(timezone.utc)
         user.save()

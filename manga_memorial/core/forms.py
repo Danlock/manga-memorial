@@ -1,4 +1,5 @@
 import re
+from dal import autocomplete
 from django import forms
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
@@ -6,22 +7,10 @@ from . import models
 
 User = get_user_model()
 
-#Custom widgets
-class ListTextWidget(forms.TextInput):
-  def __init__(self, data_list, name, *args, **kwargs):
-    super(ListTextWidget, self).__init__(*args, **kwargs)
-    self._name = name
-    self._list = data_list
-    self.attrs.update({'list': 'list__{}'.format(self._name)})
-
-  def render(self, name, value, attrs=None):
-    text_html = super(ListTextWidget, self).render(name, value, attrs=attrs)
-    data_list = '<datalist id="list__{}">'.format(self._name,self._name)
-    for item in self._list:
-      data_list += '<option value="{}">{}</option>'.format(item[0], item[1])
-    data_list += '</datalist>'
-    return '<div id="div_list__{}">'.format(self._name) + text_html + data_list + '</div>'
-
+#Custom Form Widgets
+class MangaChoiceField(forms.ModelChoiceField):
+    def label_from_instance(self, obj):
+        return obj.name
 
 #Custom Forms
 class RegistrationForm(forms.Form):
@@ -49,16 +38,9 @@ class RegistrationForm(forms.Form):
       return self.cleaned_data
 
 class BookmarkForm(forms.Form):
-  # manga = forms.CharField(widget=ListTextWidget(attrs=dict(required=True, max_length=2048), data_list=models.MangaList.getMangaListForAutocomplete(), name="manga_list"), label=_("Manga"))
-  manga = forms.ChoiceField(required=True, label=_("Manga"),choices=models.MangaList.getMangaListForAutocomplete())
-  release = forms.CharField(required=False,widget=forms.TextInput(attrs=dict(required=False, max_length=128)), label=_("Chapter"))
+  manga = MangaChoiceField(widget=autocomplete.ModelSelect2(url='manga-autocomplete',attrs={'data-minimum-input-length': 3,'data-placeholder': 'Manga title here...'}), queryset=models.Manga.objects.all())
+  release = forms.CharField(required=False, widget=forms.TextInput(attrs=dict(required=False, max_length=128, placeholder='Current chapter here...')), label=_("Chapter"))
 
-  def clean_manga(self):
-    mangas = models.MangaList.getMangaList()
-    if self.cleaned_data['manga'] not in mangas:
-      raise forms.ValidationError(_("That manga does not exist on mangaupdates.com."))
-    else:
-      return self.cleaned_data['manga']
 
 class ProfileForm(forms.Form):
   email = forms.EmailField(widget=forms.TextInput(attrs=dict(max_length=128)), label=_("Email"))

@@ -43,11 +43,12 @@
     <h3 id="welcome_msg" class="tiny_lower_spacer">Welcome {% block welcome %}{% endblock %}!</h5>
     <h6 id="explanation_msg">
       Manga Memorial memorizes manga bookmarks. <br>
-      When mangaupdates.com gets new releases, the relevant bookmarks are updated.<br>
+      When mangaupdates.com gets new releases, the relevant manga is updated.<br>
       Updated bookmarks can be emailed to you periodically depending on your profile settings. 
     </h6>
   </div>
   {% block content %}{% endblock %}  
   <div class="upper_spacer">&nbsp</div>  
+  {% block footer %}{% endblock %}
 </body>
 </html>

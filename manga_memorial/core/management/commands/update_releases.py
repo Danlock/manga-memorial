@@ -31,5 +31,4 @@ class Command(BaseCommand):
         },
       )
     
-    MangaList.updateMangaList()
     notifyAllUsers()
