@@ -27,7 +27,7 @@ SECRET_KEY = private['DJANGO_SECRET_KEY']
 DEBUG = True
 
 ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['.manga.memorial','manga.memorial']
+# ALLOWED_HOSTS = ['.manga.memorial','manga.memorial']
 
 # Application definition
 

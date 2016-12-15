@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 
-from core.models import Manga,MangaList
+from core.models import Manga
 from core.emails import notifyAllUsers
 from lxml.html import parse
 

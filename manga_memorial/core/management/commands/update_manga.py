@@ -1,6 +1,6 @@
 import time
 from django.core.management.base import BaseCommand, CommandError
-from core.models import Manga,MangaList
+from core.models import Manga
 from lxml.html import parse
 from lxml.etree import tostring
 from lxml.cssselect import CSSSelector

@@ -4,8 +4,9 @@ from django.contrib.postgres.fields import ArrayField
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import ugettext_lazy as _
 '''
-Disgusting monkeypatch dealing with no UUID serialization support in json
-TODO: get rid of once django-autocomplete updates finished
+monkeypatch dealing with no UUID serialization support in default json
+Credit goes to https://arthurpemberton.com/2015/04/fixing-uuid-is-not-json-serializable
+TODO: get rid of once django update this bullshit
 '''
 from json import JSONEncoder
 from uuid import UUID
