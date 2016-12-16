@@ -38,7 +38,7 @@ class RegistrationForm(forms.Form):
       return self.cleaned_data
 
 class BookmarkForm(forms.Form):
-  multiple_manga = MangaChoiceField(required=True, widget=autocomplete.ModelSelect2Multiple(url='manga-autocomplete',attrs={'data-minimum-input-length': 3,'data-placeholder': 'Manga titles here...'}), queryset=models.Manga.objects.all())
+  multiple_manga = MangaChoiceField(required=True, widget=autocomplete.ModelSelect2Multiple(url='manga-autocomplete',attrs={'data-minimum-input-length': 3,'data-placeholder': 'Manga titles here...', 'data-sortResults': 'function(results, container, query) { console.log("select2",results); return results; }'}), queryset=models.Manga.objects.all())
 
 class ProfileForm(forms.Form):
   email = forms.EmailField(widget=forms.TextInput(attrs=dict(max_length=128)), label=_("Email"))

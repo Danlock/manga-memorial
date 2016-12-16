@@ -63,14 +63,18 @@ $(document).ready(function() {
     });
   });
 
-  // $("#id_multiple").click(function () {
-  //   console.log("checkbox",this.checked);
-  //   if (this.checked) {
-  //     $("#id_multiple_manga").closest("td").removeClass("hide");
-  //     $("#id_manga").closest("td").addClass("hide");
-  //   } else {
-  //     $("#id_multiple_manga").closest("td").addClass("hide");
-  //     $("#id_manga").closest("td").removeClass("hide");
+  // $('#id_multiple_manga').select2({
+  //   sorter: function(results) {
+  //     console.log("select2",results);
+  //     return results.sort(function(a, b) {
+  //       if (a.text > b.text) {
+  //         return 1;
+  //       } else if (a.text < b.text) {
+  //         return -1;
+  //       } else {
+  //         return 0;
+  //       }
+  //     });
   //   }
   // });
 
