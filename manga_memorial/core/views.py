@@ -102,7 +102,7 @@ def home(request):
 @login_required
 @csrf_protect
 def editBookmark(request):
-  if request.method == "POST":
+  if request.method == "POST" and 'value' in request.POST:
     models.Bookmark(pk=request.POST['pk'],release=request.POST['value']).save(update_fields=['release'])
   if request.method == "DELETE":
     print("delete return",request.body.decode('utf-8'))
