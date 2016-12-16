@@ -31,7 +31,7 @@ def notifyAllUsers():
         email = EmailMultiAlternatives(
           'Your {} manga release notifications!'.format(user.notification_frequency),
           render_to_string('email.txt', {'bookmarks': bookmarks}),
-          'mangamemorialupdates@gmail.com',
+          'noreply@manga.memorial',
           [user.email],
         )
         email.attach_alternative(render_to_string('email.html', {'bookmarks': bookmarks}),"text/html")
