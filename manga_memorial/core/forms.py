@@ -8,7 +8,7 @@ from . import models
 User = get_user_model()
 
 #Custom Form Widgets
-class MangaChoiceField(forms.ModelChoiceField):
+class MangaChoiceField(forms.ModelMultipleChoiceField):
     def label_from_instance(self, obj):
         return obj.name
 
@@ -38,9 +38,7 @@ class RegistrationForm(forms.Form):
       return self.cleaned_data
 
 class BookmarkForm(forms.Form):
-  manga = MangaChoiceField(widget=autocomplete.ModelSelect2(url='manga-autocomplete',attrs={'data-minimum-input-length': 3,'data-placeholder': 'Manga title here...'}), queryset=models.Manga.objects.all())
-  release = forms.CharField(required=False, widget=forms.TextInput(attrs=dict(required=False, max_length=128, placeholder='Current chapter here...')), label=_("Chapter"))
-
+  multiple_manga = MangaChoiceField(required=True, widget=autocomplete.ModelSelect2Multiple(url='manga-autocomplete',attrs={'data-minimum-input-length': 3,'data-placeholder': 'Manga titles here...'}), queryset=models.Manga.objects.all())
 
 class ProfileForm(forms.Form):
   email = forms.EmailField(widget=forms.TextInput(attrs=dict(max_length=128)), label=_("Email"))

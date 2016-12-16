@@ -45,6 +45,12 @@ body {
   color: white;
 }
 
+.table_opacity {
+  filter: alpha(opacity=750); // IE 5-7
+  opacity: 0.75;
+  background-color: rgba(0, 0 , 0, 0.75);
+}
+
 .tablewidth {
   margin-left: auto;
   margin-right: auto;
@@ -63,6 +69,14 @@ p {
   text-align: center;
 }
 
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
 .upper_spacer {
   margin-top: 50px;
 }
@@ -73,6 +87,14 @@ p {
 
 .tiny_lower_spacer {
   margin-bottom: 20px;
+}
+
+.valign {
+  vertical-align: middle;
+}
+
+td > * {
+  vertical-align : middle;
 }
 
 .standard-td-height {

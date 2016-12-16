@@ -77,16 +77,12 @@ def home(request):
   if request.method == 'POST':
     form = BookmarkForm(request.POST)
     if form.is_valid():
-      print("recieved manga",form.cleaned_data['manga'])
-      # query = Q(name=form.cleaned_data['manga']) | Q(related_names__contains=[form.cleaned_data['manga']])
-      bm = models.Bookmark(
-        manga=form.cleaned_data['manga'],#models.Manga.objects.get(query),
-        release=form.cleaned_data['release'],
-        user=request.user,
-      )
-      if ('title' in form.cleaned_data):
-        bm.title = form.cleaned_data['title']
-      bm.save()
+      for manga in form.cleaned_data['multiple_manga']:
+        models.Bookmark(
+          manga=manga,
+          # release=form.cleaned_data['release'],
+          user=request.user,
+        ).save()
 
       return HttpResponseRedirect('/home/')
   else:

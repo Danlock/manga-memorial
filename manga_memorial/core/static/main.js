@@ -45,9 +45,6 @@ $.ajaxSetup({
 
 $(document).ready(function() {
   $('.bookmark_release').editable();
-  // $('#id_manga').autocomplete({
-  //   source: mangas,
-  // });
 
   $(".bookmark_button").click(function () {
     var tr = $(this).closest('tr');
@@ -65,5 +62,16 @@ $(document).ready(function() {
       }
     });
   });
+
+  // $("#id_multiple").click(function () {
+  //   console.log("checkbox",this.checked);
+  //   if (this.checked) {
+  //     $("#id_multiple_manga").closest("td").removeClass("hide");
+  //     $("#id_manga").closest("td").addClass("hide");
+  //   } else {
+  //     $("#id_multiple_manga").closest("td").addClass("hide");
+  //     $("#id_manga").closest("td").removeClass("hide");
+  //   }
+  // });
 
 });

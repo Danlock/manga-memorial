@@ -10,20 +10,17 @@
 
   <form method="post" action=".">
     {% csrf_token %}
-    <table id="bookmark_form" class="table align-middle table-sm tablewidth">
+    <table id="bookmark_form" class="table align-middle table-sm tablewidth upper_spacer ">
       <tr>
-          <td class="standard-td-height black-font">{{ form.manga }}</td>
-      </tr>
-      <tr>
-          <td class="standard-td-height">{{ form.release }}</td>
+          <td class="standard-td-height black-font">{{ form.multiple_manga }}</td>
       </tr>
       <tr class="table_center">
-        <td class="table_center" colspan="2"><input type="submit" value="Add Bookmark" class="btn btn-primary" /></td>
+        <td class="table_center" colspan="2"><input type="submit" value="Add Bookmarks" class="btn btn-primary" /></td>
       </tr>
     </table>
   </form>
 
-  <table id="bookmark_list" class="table table-bordered table_center table-hover table-sm tablewidth">
+  <table id="bookmark_list" class="table table-inverse table-bordered table_opacity table_center table-hover table-sm tablewidth">
     <thead class="thead-inverse table_center">
       <th class="table_center">Manga</th>
       <th class="table_center">Latest Chapter</th>
