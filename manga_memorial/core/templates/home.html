@@ -24,7 +24,7 @@
     <thead class="thead-inverse table_center">
       <th class="table_center">Manga</th>
       <th class="table_center">Latest Chapter</th>
-      <th class="table_center">Translation Group</th>
+      <!-- <th class="table_center">Translation Group</th> -->
       <th class="table_center">Remove</th>
     </thead>
     <tbody>
@@ -33,7 +33,7 @@
 
         <td class="align-middle"><a href="{{ b.manga.manga_updates_url }}">{{ b.manga.name }}</a></td>
         <td class="align-middle">{{ b.manga.latest_release }}</td>
-        <td class="align-middle"><a href="{{ b.manga.translator_url }}">{{ b.manga.translator }}</a></td>
+        <!-- <td class="align-middle"><a href="{{ b.manga.translator_url }}">{{ b.manga.translator }}</a></td> -->
         <td class="bookmark_button align-middle"><input type="submit" value="&nbsp" class="btn btn-outline-danger btn-block" /></td>
       </tr>
     {% endfor %}
