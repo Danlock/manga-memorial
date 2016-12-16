@@ -4,13 +4,15 @@ from django.core.mail import get_connection,EmailMessage,EmailMultiAlternatives
 from datetime import datetime,timedelta,timezone
 from django.template.loader import render_to_string
 
-def relevantBookmarks(user): 
+def getAndUpdateBookmarks(user): 
   bookmarks = []
   for bm in Bookmark.objects.filter(user=user):
+    #this line is in case a bookmark has no release at all, leftover from old design
     bm.release = bm.manga.latest_release if not bm.release else bm.release 
     if (bm.manga.latest_release != bm.release):
       bookmarks.append(bm)
     bm.release = bm.manga.latest_release
+    bm.save()
   return bookmarks
 
 def shouldEmail(user):
@@ -28,7 +30,7 @@ def notifyAllUsers():
   emails = []
   for user in users:
     if (shouldEmail(user)):
-      bookmarks = relevantBookmarks(user)
+      bookmarks = getAndUpdateBookmarks(user)
       if (len(bookmarks) > 0):
         email = EmailMultiAlternatives(
           'Your {} manga release notifications!'.format(user.notification_frequency),
