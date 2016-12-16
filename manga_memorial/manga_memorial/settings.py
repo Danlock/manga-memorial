@@ -133,6 +133,7 @@ AUTH_USER_MODEL='core.User'
 LOGIN_REDIRECT_URL = '/home/'
 LOGIN_URL = '/login/'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 25
 EMAIL_HOST_USER = ''
