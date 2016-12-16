@@ -10,7 +10,7 @@ def relevantBookmarks(user):
     bm.release = bm.manga.latest_release if not bm.release else bm.release 
     if (bm.manga.latest_release != bm.release):
       bookmarks.append(bm)
-      bm.release = bm.manga.latest_release
+    bm.release = bm.manga.latest_release
   return bookmarks
 
 def shouldEmail(user):
