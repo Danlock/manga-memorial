@@ -80,7 +80,7 @@ def home(request):
       for manga in form.cleaned_data['multiple_manga']:
         models.Bookmark(
           manga=manga,
-          # release=form.cleaned_data['release'],
+          release=manga.latest_release,
           user=request.user,
         ).save()
 

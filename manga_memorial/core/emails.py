@@ -7,8 +7,10 @@ from django.template.loader import render_to_string
 def relevantBookmarks(user): 
   bookmarks = []
   for bm in Bookmark.objects.filter(user=user):
+    bm.release = bm.manga.latest_release if not bm.release else bm.release 
     if (bm.manga.latest_release != bm.release):
       bookmarks.append(bm)
+      bm.release = bm.manga.latest_release
   return bookmarks
 
 def shouldEmail(user):
