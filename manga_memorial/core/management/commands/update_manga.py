@@ -7,7 +7,8 @@ from lxml.cssselect import CSSSelector
 
 
 MAX_MANGA_ID = 999999
-CONSECUTIVE_ERROR_TOLERANCE = 25
+PAST_LAST_MANGA_ID = 137921
+CONSECUTIVE_ERROR_TOLERANCE = 250
 selectors = dict(
   name=CSSSelector('.releasestitle'),
   release=CSSSelector('div.sContainer:nth-child(3) > div:nth-child(1) > div:nth-child(17)'),
@@ -21,7 +22,7 @@ selectors = dict(
 
 
 class Command(BaseCommand):
-  help = 'Grabs all manga titles and names from Bakaupdates. Expensive.'
+  help = 'Grabs all manga titles and names from Bakaupdates. Expensive. (Roughly 22400 seconds to run.)'
   def handle(self,*args, **options):
     start_time = time.time()
     base_url = 'http://www.mangaupdates.com/series.html?id='
@@ -51,7 +52,9 @@ class Command(BaseCommand):
           print('Failed on ',url)
           print(err_elem[0].text_content()  if len(err_elem) > 0 else " ")
           print(err_body_elem[0].text_content()  if len(err_body_elem) > 0 else " ")
-        consecutive_errors += 1
+        #Only start to count id errors once we are close to the last id
+        if (index >= PAST_LAST_MANGA_ID):
+          consecutive_errors += 1
         index += 1
         continue
 
