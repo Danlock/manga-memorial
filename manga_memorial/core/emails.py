@@ -17,9 +17,10 @@ def getAndUpdateBookmarks(user):
 
 def shouldEmail(user):
   hours = User.frequency_choices_hours[user.notification_frequency]
+  relevantTime = user.created_at if user.emailed_at == None else user.emailed_at
   if (hours == -1):
     return False
-  elif (user.emailed_at == None or user.emailed_at + timedelta(hours=hours) < datetime.now(timezone.utc)):
+  elif (relevantTime + timedelta(hours=hours) < datetime.now(timezone.utc)):
     return True
   else:
     return False
@@ -33,7 +34,7 @@ def notifyAllUsers():
       bookmarks = getAndUpdateBookmarks(user)
       if (len(bookmarks) > 0):
         email = EmailMultiAlternatives(
-          'Your {} manga release notifications!'.format(user.notification_frequency),
+          'Your {} manga release notifications from Manga.Memorial!'.format(user.notification_frequency),
           render_to_string('email.txt', {'bookmarks': bookmarks}),
           'dan@manga.memorial',
           [user.email],
