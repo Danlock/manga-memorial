@@ -34,7 +34,7 @@ def notifyAllUsers():
       bookmarks = getAndUpdateBookmarks(user)
       if (len(bookmarks) > 0):
         email = EmailMultiAlternatives(
-          'Your {} manga release notifications from Manga.Memorial!'.format(user.notification_frequency),
+          'Your manga.memorial release notifications!',
           render_to_string('email.txt', {'bookmarks': bookmarks}),
           'dan@manga.memorial',
           [user.email],
