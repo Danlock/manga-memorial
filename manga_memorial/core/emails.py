@@ -18,7 +18,7 @@ def getAndUpdateBookmarks(user):
 def shouldEmail(user):
   hours = User.frequency_choices_hours[user.notification_frequency]
   relevantTime = user.created_at if user.emailed_at == None else user.emailed_at
-  if (hours == -1):
+  if (hours == -1 or user.email == None):
     return False
   elif (relevantTime + timedelta(hours=hours) < datetime.now(timezone.utc)):
     return True

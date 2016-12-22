@@ -59,7 +59,7 @@ class User(AbstractUser):
     'bimonthly':  24*60,
   }
   private = models.BooleanField(default=True)
-  notification_frequency = models.CharField(max_length=32,choices=frequency_choices,default=frequency_choices[0][0])
+  notification_frequency = models.CharField(max_length=32,choices=frequency_choices,default=frequency_choices[2][0])
   emailed_at =models.DateTimeField(null=True)
   created_at = models.DateTimeField(auto_now_add=True,null=True)
   updated_at = models.DateTimeField(auto_now=True,null=True)
