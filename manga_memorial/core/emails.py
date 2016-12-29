@@ -31,6 +31,7 @@ def notifyAllUsers():
   emails = []
   for user in users:
     if (shouldEmail(user)):
+      print("Sending email to " + user.username + " at " + user.email)
       bookmarks = getAndUpdateBookmarks(user)
       if (len(bookmarks) > 0):
         email = EmailMultiAlternatives(
