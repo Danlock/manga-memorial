@@ -91,7 +91,7 @@ def home(request):
   variables = RequestContext(request, {
     'form': form,
     'user': request.user,
-    'bookmarks': models.Bookmark.objects.filter(user__id=request.user.id),
+    'bookmarks': models.Bookmark.objects.filter(user__id=request.user.id).order_by('manga__name'),
   })
 
   return render_to_response(

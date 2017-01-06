@@ -15,7 +15,7 @@ selectors = dict(
   author=CSSSelector('div.sContainer:nth-child(4) > div:nth-child(1) > div:nth-child(17) > a:nth-child(1) > u:nth-child(1)'),
   image=CSSSelector('div.sContainer:nth-child(4) > div:nth-child(1) > div:nth-child(2) > center:nth-child(1) > img:nth-child(1)'),          
   related=CSSSelector('div.sContainer:nth-child(3) > div:nth-child(1) > div:nth-child(11)'),
-  group=CSSSelector('div.sContainer:nth-child(3) > div:nth-child(1) > div:nth-child(17) > a:nth-child(3)'),
+  group=CSSSelector('div.sContainer:nth-child(3) > div:nth-child(1) > div:nth-child(14) > a:nth-child(1)'),
   err=CSSSelector('.tab_middle'),
   err_body=CSSSelector('.table_content'),
 )
